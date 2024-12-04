@@ -3,9 +3,9 @@ import { theme } from "../../theme";
 
 type ButtonPropsType = {
   label: string;
-  Icon: JSX.Element;
+  Icon?: JSX.Element;
   className: string;
-  version: "normal" | "success";
+  version?: "normal" | "success";
   onClick: () => void;
   disabled: boolean;
 };
