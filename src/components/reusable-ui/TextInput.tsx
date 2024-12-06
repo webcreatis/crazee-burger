@@ -1,20 +1,55 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { theme } from "../../theme"
+import React from "react";
+import styled, { css } from "styled-components";
+import { theme } from "../../theme";
 
-const TextInput = React.forwardRef(
-  ({ onChange, Icon, className, version = "normal", ...extraProps }, ref) => {
+type TextInputVersion = "normal" | "minimalist";
+
+type TextInputPropsType = {
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  Icon: JSX.Element;
+  className?: string;
+  version: TextInputVersion;
+} & React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
+
+// autre façon pour les types ...extraprops
+// type TextInputPropsType2 = {
+//   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+//   Icon: JSX.Element;
+//   className?: string;
+//   version: TextInputVersion;
+// } & ComponentPropsWithRef<"input">;
+
+const TextInput = React.forwardRef<HTMLInputElement, TextInputPropsType>(
+  (
+    {
+      onChange,
+      Icon,
+      className,
+      version = "normal",
+      ...extraProps
+    }: TextInputPropsType,
+    ref
+  ) => {
     return (
       <TextInputStyled className={className} version={version}>
         <div className="icon">{Icon && Icon}</div>
         <input ref={ref} onChange={onChange} type="text" {...extraProps} />
       </TextInputStyled>
-    )
+    );
   }
-)
+);
 
-export default TextInput
-const TextInputStyled = styled.div`
+export default TextInput;
+
+type TextInputStyledProps = {
+  version: TextInputVersion;
+  className?: string;
+};
+
+const TextInputStyled = styled.div<TextInputStyledProps>`
   border-radius: ${theme.borderRadius.round};
   display: flex;
   align-items: center;
@@ -36,12 +71,12 @@ const TextInputStyled = styled.div`
   }
 
   /* ${(props) => {
-    if (props.version === "normal") return extraStyleNormal
-    if (props.version === "minimalist") return extraStyleMinimalist
+    if (props.version === "normal") return extraStyleNormal;
+    if (props.version === "minimalist") return extraStyleMinimalist;
   }} */
 
   ${({ version }) => extraStyle[version]}
-`
+`;
 
 const extraStyleNormal = css`
   background-color: ${theme.colors.white};
@@ -55,7 +90,7 @@ const extraStyleNormal = css`
       background: ${theme.colors.white};
     }
   }
-`
+`;
 
 const extraStyleMinimalist = css`
   background-color: ${theme.colors.background_white};
@@ -70,9 +105,9 @@ const extraStyleMinimalist = css`
       outline: 0; //// add outline
     }
   }
-`
+`;
 
 const extraStyle = {
   normal: extraStyleNormal,
   minimalist: extraStyleMinimalist,
-}
+};

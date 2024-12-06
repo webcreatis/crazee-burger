@@ -1,18 +1,43 @@
-import styled, { css } from "styled-components"
-import { theme } from "../../theme"
+import { ComponentProps } from "react";
+import styled, { css } from "styled-components";
+import { theme } from "../../theme";
 
-export default function Button({ label, Icon, className, version = "normal", onClick, disabled }) {
+type ButtonVersion = "normal" | "success";
+
+type ButtonPropsType = {
+  label: string;
+  Icon?: JSX.Element;
+  version?: ButtonVersion;
+} & ComponentProps<"button">; // ici button est un union type
+
+export default function Button({
+  label,
+  Icon,
+  className,
+  version = "normal",
+  onClick,
+  disabled,
+}: ButtonPropsType) {
   return (
-    <ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
+    <ButtonStyled
+      className={className}
+      version={version}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <span>{label}</span>
       <div className="icon">{Icon && Icon}</div>
     </ButtonStyled>
-  )
+  );
 }
 
-const ButtonStyled = styled.button`
+type ButtonStyledProps = {
+  version: ButtonVersion;
+};
+
+const ButtonStyled = styled.button<ButtonStyledProps>`
   ${({ version }) => extraStyle[version]};
-`
+`;
 
 const extraStyleNormal = css`
   width: 100%;
@@ -71,7 +96,7 @@ const extraStyleNormal = css`
     justify-content: center;
     align-items: center;
   }
-`
+`;
 
 const extraStyleSuccess = css`
   cursor: pointer;
@@ -92,8 +117,8 @@ const extraStyleSuccess = css`
     background: ${theme.colors.success};
     border: 1px solid ${theme.colors.success};
   }
-`
+`;
 const extraStyle = {
   normal: extraStyleNormal,
   success: extraStyleSuccess,
-}
+};
