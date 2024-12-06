@@ -4,8 +4,8 @@ import { theme } from "../../theme";
 type TabPropsType = {
   label: string;
   Icon: JSX.Element;
-  onClick: () => void;
-  className: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 };
 
 export default function Tab({ label, Icon, onClick, className }: TabPropsType) {

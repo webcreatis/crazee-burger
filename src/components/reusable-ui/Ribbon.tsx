@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { theme } from "../../theme";
 
 type RibbonPropsType = {
-  label: string;
-  className: string;
+  label?: string;
+  className?: string;
 };
 
 export default function Ribbon({ label = "new", className }: RibbonPropsType) {
