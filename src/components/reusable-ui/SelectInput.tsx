@@ -1,17 +1,16 @@
+import { ComponentProps } from "react";
 import styled from "styled-components";
 import { theme } from "../../theme";
 
-type SelectInputPropsType = {
-  options: {
-    optionValue: string;
-    label: string;
-  }[];
-  value: string;
-  name: string;
-  Icon: JSX.Element;
-  className: string;
-  onChange: () => void;
+type Option = {
+  optionValue?: string | number | readonly string[];
+  label: string;
 };
+
+type SelectInputPropsType = {
+  options: Option[];
+  Icon: JSX.Element;
+} & ComponentProps<"select">;
 
 export default function SelectInput({
   options,
