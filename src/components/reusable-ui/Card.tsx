@@ -8,12 +8,12 @@ type CardPropsType = {
   title: string;
   imageSource: string;
   leftDescription: string;
-  hasDeleteButton: boolean;
-  onDelete: () => void;
-  onClick: () => void;
-  isHoverable: boolean;
-  isSelected: boolean;
-  onAdd: () => void;
+  hasDeleteButton?: boolean;
+  onDelete?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  isHoverable?: boolean;
+  isSelected?: boolean;
+  onAdd?: React.MouseEventHandler<HTMLButtonElement>;
   overlapImageSource: string;
   isOverlapImageVisible: boolean;
 };
@@ -87,7 +87,12 @@ export default function Card({
   );
 }
 
-const CardStyled = styled.div<{ isHoverable: boolean; isSelected: boolean }>`
+type CardStyledProps = {
+  isHoverable?: boolean;
+  isSelected?: boolean;
+};
+
+const CardStyled = styled.div<CardStyledProps>`
   ${({ isHoverable }) => isHoverable && hoverableStyle}
   border-radius: ${theme.borderRadius.extraRound};
   /* border: 1px solid red; */
