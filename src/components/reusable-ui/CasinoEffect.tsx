@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 type CasinoEffectPropsType = {
   count: string;
-  className: string | undefined;
+  className?: string;
 };
 
 export default function CasinoEffect({
