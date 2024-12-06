@@ -1,14 +1,14 @@
+import { ComponentProps } from "react";
 import styled, { css } from "styled-components";
 import { theme } from "../../theme";
+
+type ButtonVersion = "normal" | "success";
 
 type ButtonPropsType = {
   label: string;
   Icon?: JSX.Element;
-  className: string;
-  version?: "normal" | "success";
-  onClick: () => void;
-  disabled: boolean;
-};
+  version?: ButtonVersion;
+} & ComponentProps<"button">; // ici button est un union type
 
 export default function Button({
   label,
@@ -31,7 +31,11 @@ export default function Button({
   );
 }
 
-const ButtonStyled = styled.button<{ version: keyof typeof extraStyle }>`
+type ButtonStyledProps = {
+  version: ButtonVersion;
+};
+
+const ButtonStyled = styled.button<ButtonStyledProps>`
   ${({ version }) => extraStyle[version]};
 `;
 
