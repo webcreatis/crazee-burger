@@ -2,15 +2,37 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { theme } from "../../theme";
 
+type TextInputVersion = "normal" | "minimalist";
+
 type TextInputPropsType = {
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   Icon: JSX.Element;
-  className: string;
-  version: "normal" | "minimalist";
-};
+  className?: string;
+  version: TextInputVersion;
+} & React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
+
+// autre façon pour les types ...extraprops
+// type TextInputPropsType2 = {
+//   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+//   Icon: JSX.Element;
+//   className?: string;
+//   version: TextInputVersion;
+// } & ComponentPropsWithRef<"input">;
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputPropsType>(
-  ({ onChange, Icon, className, version = "normal", ...extraProps }, ref) => {
+  (
+    {
+      onChange,
+      Icon,
+      className,
+      version = "normal",
+      ...extraProps
+    }: TextInputPropsType,
+    ref
+  ) => {
     return (
       <TextInputStyled className={className} version={version}>
         <div className="icon">{Icon && Icon}</div>
@@ -21,7 +43,13 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputPropsType>(
 );
 
 export default TextInput;
-const TextInputStyled = styled.div<{ version: keyof typeof extraStyle }>`
+
+type TextInputStyledProps = {
+  version: TextInputVersion;
+  className?: string;
+};
+
+const TextInputStyled = styled.div<TextInputStyledProps>`
   border-radius: ${theme.borderRadius.round};
   display: flex;
   align-items: center;
