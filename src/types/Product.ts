@@ -5,10 +5,12 @@ export type MenuProduct = {
   isPublicised: boolean,
   price?: number,
   title?: string,
-  quantity:number
+  quantity?:number
 }
 
-export type BasketProduct = {
+export type BasketProductQuantity = {
   id:string,
   quantity:number
 }
+
+export type BasketProduct = MenuProduct & BasketProductQuantity
