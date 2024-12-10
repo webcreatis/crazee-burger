@@ -7,3 +7,8 @@ export type MenuProduct = {
   title?: string,
   quantity:number
 }
+
+export type BasketProduct = {
+  id:string,
+  quantity:number
+}
