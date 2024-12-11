@@ -1,13 +1,17 @@
+import { MenuProduct } from "@/types/Product"
 import { useState } from "react"
+import { syncBothMenus } from "../api/product"
 import { fakeMenu } from "../fakeData/fakeMenu"
 import { deepClone } from "../utils/array"
-import { syncBothMenus } from "../api/product"
+
 
 export const useMenu = () => {
-  const [menu, setMenu] = useState()
+  const [menu, setMenu] = useState<MenuProduct[] | undefined>(undefined)
 
   // comportements (gestionnaire de state ou "state handlers")
-  const handleAdd = (newProduct, username) => {
+  const handleAdd = (newProduct: MenuProduct, username: string) => {
+
+    if(menu) {
     // 1. copie du tableau
     const menuCopy = deepClone(menu)
 
@@ -17,22 +21,27 @@ export const useMenu = () => {
     // 3. update du state
     setMenu(menuUpdated)
     syncBothMenus(username, menuUpdated)
+    }
   }
 
-  const handleDelete = (idOfProductToDelete, username) => {
+  const handleDelete = (idOfProductToDelete:string, username:string) => {
+
+    if(menu) {
     //1. copy du state
     const menuCopy = deepClone(menu)
 
-    //2. manip de la copie state
+    //2. manip de la copie du state
     const menuUpdated = menuCopy.filter((product) => product.id !== idOfProductToDelete)
-    console.log("menuUpdated: ", menuUpdated)
 
     //3. update du state
     setMenu(menuUpdated)
     syncBothMenus(username, menuUpdated)
+    }
   }
 
-  const handleEdit = (productBeingEdited, username) => {
+  const handleEdit = (productBeingEdited: MenuProduct, username:string) => {
+
+    if(menu) {
     // 1. copie du state (deep clone)
     const menuCopy = deepClone(menu)
 
@@ -45,9 +54,10 @@ export const useMenu = () => {
     // 3. update du state
     setMenu(menuCopy)
     syncBothMenus(username, menuCopy)
+    }
   }
 
-  const resetMenu = (username) => {
+  const resetMenu = (username:string) => {
     setMenu(fakeMenu.LARGE)
     syncBothMenus(username, fakeMenu.LARGE)
   }
