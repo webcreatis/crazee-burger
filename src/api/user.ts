@@ -3,7 +3,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore"
 import { fakeMenu } from "../fakeData/fakeMenu"
 import { db } from "./firebase-config"
 
-export const getUser = async (idUser:string) => {
+export const getUser = async (idUser:string): Promise<User | undefined> => {
   //const docRef = doc(CHEMIN)
   const docRef = doc(db, "users", idUser)
 
@@ -25,7 +25,7 @@ export const createUser = async (userId:string): Promise<User> => {
   const docRef = doc(db, "users", userId)
 
   // NOURRITURE
-  const newUserToCreate = {
+  const newUserToCreate: User = {
     username: userId,
     menu: fakeMenu.SMALL,
   }
@@ -39,8 +39,7 @@ export const authenticateUser = async (userId:string): Promise<User> => {
   const existingUser = await getUser(userId)
   
 
-  if (!existingUser) {
-    return await createUser(userId)
-  }
+  if (!existingUser) return await createUser(userId)
+  
   return existingUser
 }
