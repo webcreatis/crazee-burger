@@ -17,7 +17,7 @@ type OrderContextType = {
   resetMenu: (username: string) => void;
   newProduct: MenuProduct;
   setNewProduct: Dispatch<SetStateAction<MenuProduct>>;
-  productSelected?: MenuProduct;
+  productSelected: MenuProduct;
   setProductSelected: (arg: MenuProduct) => void;
   handleProductSelected: (idProductClicked: string) => Promise<void>;
   titleEditRef: React.RefObject<HTMLInputElement>;

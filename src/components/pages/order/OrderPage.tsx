@@ -42,7 +42,7 @@ export default function OrderPage() {
   };
 
   useEffect(() => {
-    initialiseUserSession(username, setMenu, setBasket);
+    initialiseUserSession(username!, setMenu, setBasket); // on indique ici à typescript que username ne sera pas undefined
   }, []);
 
   const orderContextValue = {

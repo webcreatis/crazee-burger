@@ -1,9 +1,21 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { MdDeleteForever } from "react-icons/md"
-import { theme } from "../../../../../../theme"
-import CasinoEffect from "../../../../../reusable-ui/CasinoEffect"
-import Sticker from "../../../../../reusable-ui/Sticker"
+import { MdDeleteForever } from "react-icons/md";
+import styled, { css } from "styled-components";
+import { theme } from "../../../../../../theme";
+import CasinoEffect from "../../../../../reusable-ui/CasinoEffect";
+import Sticker from "../../../../../reusable-ui/Sticker";
+
+type BasketCardProps = {
+  title?: string;
+  price: string;
+  quantity: number;
+  imageSource?: string;
+  className: string;
+  isClickable: boolean;
+  onClick: React.MouseEventHandler<HTMLDivElement> | undefined;
+  onDelete: React.MouseEventHandler<HTMLDivElement> | undefined;
+  isSelected: boolean;
+  isPublicised: boolean;
+};
 
 export default function BasketCard({
   title,
@@ -16,9 +28,14 @@ export default function BasketCard({
   onDelete,
   isSelected,
   isPublicised,
-}) {
+}: BasketCardProps) {
   return (
-    <BasketCardStyled className={className} isClickable={isClickable} onClick={onClick} isSelected={isSelected}>
+    <BasketCardStyled
+      className={className}
+      isClickable={isClickable}
+      onClick={onClick}
+      isSelected={isSelected}
+    >
       <div className="delete-button" onClick={onDelete}>
         <MdDeleteForever className="icon" />
       </div>
@@ -38,10 +55,15 @@ export default function BasketCard({
         </div>
       </div>
     </BasketCardStyled>
-  )
+  );
 }
 
-const BasketCardStyled = styled.div`
+type BasketCardStyledProps = {
+  isClickable: boolean;
+  isSelected: boolean;
+};
+
+const BasketCardStyled = styled.div<BasketCardStyledProps>`
   cursor: ${({ isClickable }) => (isClickable ? "pointer" : "auto")};
   /* border: 1px solid red; */
   box-sizing: border-box;
@@ -170,8 +192,9 @@ const BasketCardStyled = styled.div`
     }
   }
 
-  ${({ isClickable, isSelected }) => isClickable && isSelected && selectedStyled}
-`
+  ${({ isClickable, isSelected }) =>
+    isClickable && isSelected && selectedStyled}
+`;
 
 const selectedStyled = css`
   background: ${theme.colors.primary};
@@ -179,4 +202,4 @@ const selectedStyled = css`
   .quantity {
     color: ${theme.colors.white};
   }
-`
+`;
