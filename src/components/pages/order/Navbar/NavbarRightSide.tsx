@@ -9,9 +9,8 @@ import ToastAdmin from "./ToastAdmin";
 export default function NavbarRightSide() {
   const orderContext = useContext(OrderContext);
 
-  if (orderContext === undefined) {
+  if (orderContext === undefined)
     throw new Error("OrderContext must be used within an OrderProvider");
-  }
 
   const { isModeAdmin, setIsModeAdmin } = orderContext;
 
