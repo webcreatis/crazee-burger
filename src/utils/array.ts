@@ -4,8 +4,8 @@ export const deepClone = <T>(array: T[]): T[] => {
 
 type ID = string | number
 
-export const findObjectById = <T extends {id:ID}>(id: ID, array: T[]): T | undefined => {
-  return array.find((itemInArray) => itemInArray.id === id);
+export const findObjectById = <T extends {id:ID}>(id: ID, array: T[] | undefined): T | undefined => {
+  return array?.find((itemInArray) => itemInArray.id === id);
 };
 
 export const findIndexById = <T extends {id:ID}>(idWithUnknownIndex: ID, array: T[]) :number  => { // T herite de la propriété ID
