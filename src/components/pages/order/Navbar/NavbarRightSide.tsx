@@ -1,13 +1,19 @@
-import styled from "styled-components"
-import Profile from "./Profile"
-import ToggleButton from "../../../reusable-ui/ToggleButton"
-import { useContext } from "react"
-import ToastAdmin from "./ToastAdmin"
-import { toast } from "react-toastify"
-import OrderContext from "../../../../context/OrderContext"
+import OrderContext from "@/context/OrderContext";
+import { useContext } from "react";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import ToggleButton from "../../../reusable-ui/ToggleButton";
+import Profile from "./Profile";
+import ToastAdmin from "./ToastAdmin";
 
 export default function NavbarRightSide() {
-  const { isModeAdmin, setIsModeAdmin } = useContext(OrderContext)
+  const orderContext = useContext(OrderContext);
+
+  if (orderContext === undefined) {
+    throw new Error("OrderContext must be used within an OrderProvider");
+  }
+
+  const { isModeAdmin, setIsModeAdmin } = orderContext;
 
   const displayToastNotification = () => {
     if (!isModeAdmin) {
@@ -21,10 +27,10 @@ export default function NavbarRightSide() {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-      })
+      });
     }
-    setIsModeAdmin(!isModeAdmin)
-  }
+    setIsModeAdmin(!isModeAdmin);
+  };
 
   return (
     <NavbarRightSideStyled>
@@ -37,11 +43,11 @@ export default function NavbarRightSide() {
       <Profile />
       <ToastAdmin />
     </NavbarRightSideStyled>
-  )
+  );
 }
 
 const NavbarRightSideStyled = styled.div`
   display: flex;
   align-items: center;
   padding-right: 50px;
-`
+`;

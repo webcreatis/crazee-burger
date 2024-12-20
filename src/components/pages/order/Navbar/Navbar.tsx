@@ -1,8 +1,8 @@
-import styled from "styled-components"
-import NavbarRightSide from "./NavbarRightSide"
-import Logo from "../../../reusable-ui/Logo"
-import { theme } from "../../../../theme"
-import { refreshPage } from "../../../../utils/window"
+import Logo from "@/components/reusable-ui/Logo";
+import { refreshPage } from "@/utils/window";
+import styled from "styled-components";
+import { theme } from "../../../../theme";
+import NavbarRightSide from "./NavbarRightSide";
 
 export default function Navbar() {
   return (
@@ -10,7 +10,7 @@ export default function Navbar() {
       <Logo className="logo-order-page" onClick={() => refreshPage()} />
       <NavbarRightSide />
     </NavbarStyled>
-  )
+  );
 }
 
 const NavbarStyled = styled.nav`
@@ -28,4 +28,4 @@ const NavbarStyled = styled.nav`
   .logo-order-page {
     cursor: pointer;
   }
-`
+`;
